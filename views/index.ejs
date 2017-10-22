@@ -1,7 +1,54 @@
 <html>
   <head>
     <title>
-      smellnote
+      smilenote日记
     </title>
+      <%include quote.ejs%>
   </head>
+  <body>
+    <%include header.ejs%>
+      <div class="container-fluid">
+        <div class="row blueback">
+          <div class="col"></div>
+          <div class="col">
+            <img src="../images/记事本 .png" alt="" style="margin-top: 20px;">
+            <h1>SmileNote</h1>
+            <p>一个小巧的日记本</p>
+            <button type="button" class="btn btn-success btn-lg"><a href="http://localhost:3000/users/signin" style="color: white">开始写日记</a></button>
+          </div>
+          <div class="col"></div>
+        </div>
+        <div class="row desc">
+          <div class="col topic">
+            <img src="../images/日晴.png" alt="">
+            <h2>心情的晴雨表</h2>
+          </div>
+          <div class="col topic">
+            <img src="../images/气球.png" alt="">
+            <h2>记录每一分快乐</h2>
+          </div>
+        </div>
+      </div>
+    <%include footer.ejs%>
+  </body>
+  <style>
+    .blueback{
+      background-color: #00B7FF;
+      height: 400px;
+      color:white;
+      text-align: center;
+    }
+    .topic{
+      text-align: center;
+    }
+    .desc{
+      margin-top: 50px;
+      padding-bottom: 50px;
+    }
+    .footer{
+      background-color: #000a32;
+    }
+  </style>
+  <script>
+  </script>
 </html>

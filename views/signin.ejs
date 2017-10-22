@@ -1,14 +1,43 @@
 <html>
-    <head>
-        <title>signin</title>
-    </head>
-    <body>
-    <form action="http://localhost:3000/users/signin" method="post">
-        <label for="name">账号</label>
-        <input type="text" id="name" name="name">
-        <label for="password">密码</label>
-        <input type="password" id="password" name="password">
-        <button type="submit">提交</button>
-    </form>
-    </body>
+<head>
+    <title>signup</title>
+    <%include quote.ejs%>
+</head>
+<body>
+<%include header.ejs%>
+<div class="container background">
+    <div class="row" style="margin-top:100px;">
+        <div class="col">
+        </div>
+        <div class="col">
+            <div class="card" style="width: 20rem;">
+                <div class="card-header">
+                    注册
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <form action="http://localhost:3000/users/signin" method="post">
+                            <label for="name">账号</label>
+                            <input type="text" id="name" name="name" class="form-control">
+                            <label for="password">密码</label>
+                            <input type="password" id="password" name="password" class="form-control">
+                            <button type="submit" class="btn btn-primary" style="margin-top: 20px;">提交</button>
+                            <a href="http://localhost:3000/users/signup">我已经注册了，登录</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+    <%include footer.ejs%>
+</div>
+<style>
+    body{
+        background:url("../images/background.jpg");
+        background-size: cover;
+    }
+</style>
+</body>
 </html>

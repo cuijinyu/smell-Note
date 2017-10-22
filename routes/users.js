@@ -10,10 +10,19 @@ router.get("/login",function (req,res,next) {
 
 });
 router.get("/signup",function (req,res,next) {
-    res.render('signup');
+    if(req.session.log=='true'){
+        res.send("您已经登录");
+    }
+    else{
+        res.render('signup');
+    }
 });
 router.get("/signin",function (req,res,next) {
-  res.render('signin');
+    if(req.session.log=='true'){
+       res.redirect('../article');
+    }else {
+        res.render('signin');
+    }
 });
 router.get("/signout",function (req,res,next) {
 
@@ -25,34 +34,31 @@ router.post("/signup",function (req,res,next) {
         sign.findUser(req.body.name)
             .then((rows)=>{
                 if( sign.checkPassword(req.body,rows)){
-                    res.send("登录成功");
+                    req.session.log='true';
+                    req.session.name=req.body.name;
+                    res.redirect('../article');
                 }else{
-                    res.send("登录失败");
+                    res.send("账户或密码错误");
                 }
             }).catch((err)=>{
             res.send("error");
         })
 });
 router.post("/signin",function (req,res,next) {
-    if(req.session.log==undefined||req.session.log==false){
         sign.findUser(req.body.name)
             .then((row)=>{
                 if(row.length>0) {
-                    res.send("This id has been signined");
+                    res.send("这个账户已经被注册了");
                 }else{
                     sign.createNewUser(req.body.name,req.body.password)
                         .then(()=>{
-                            req.session.log=true;
+                            req.session.log='true';
                             req.session.name=req.body.name;
-                            res.send("注册成功");
-                            res.redirect(user);
+                            res.redirect('../article');
                         }).catch(err=>{
                         res.send("false");
                     })
                 }
             })
-    }else {
-        res.redirect("user");
-    }
-});
+    });
 module.exports = router;
