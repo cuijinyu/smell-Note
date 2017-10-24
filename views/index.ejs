@@ -1,54 +1,435 @@
-<html>
-  <head>
-    <title>
-      smilenote日记
-    </title>
-      <%include quote.ejs%>
-  </head>
-  <body>
-    <%include header.ejs%>
-      <div class="container-fluid">
-        <div class="row blueback">
-          <div class="col"></div>
-          <div class="col">
-            <img src="../images/记事本 .png" alt="" style="margin-top: 20px;">
-            <h1>SmileNote</h1>
-            <p>一个小巧的日记本</p>
-            <button type="button" class="btn btn-success btn-lg"><a href="http://localhost:3000/users/signin" style="color: white">开始写日记</a></button>
-          </div>
-          <div class="col"></div>
+<!DOCTYPE html>
+<!--[if IE 8]>         <html class="no-js ie8"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+
+        <!-- Basics -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>电脑义疗服务中心</title>
+        <meta name="description" content="电脑义疗服务中心">
+
+        <!-- Favicons -->
+        <link rel="shortcut icon" href="img/favicons/favicon.ico">
+
+        <!-- Mobile -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <!-- Fonts -->
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Lato:300,400,700'>
+		<style>
+			html,body{
+				height: 100% !important;
+			}
+			.qr{
+				height: 300px;
+				width: 300px;
+			}
+			.load{
+				width: 100%;
+				height: 100%;
+				background-color: white;
+				z-index: 99;
+			}
+			.lds-css{
+				height: 100%;
+			}
+			.lds-wedges{
+				position: fixed !important;;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				margin: auto;
+			}
+			.back{
+				position: fixed;
+				bottom: 30px;
+				right: 30px;
+				width: 40px;
+				height: 40px;
+				background-color: pink;
+			}
+		</style>
+		<style type="text/css">
+			@keyframes lds-wedges {
+			  0% {
+			    -webkit-transform: rotate(0deg);
+			    transform: rotate(0deg);
+			  }
+			  100% {
+			    -webkit-transform: rotate(360deg);
+			    transform: rotate(360deg);
+			  }
+			}
+			@-webkit-keyframes lds-wedges {
+			  0% {
+			    -webkit-transform: rotate(0deg);
+			    transform: rotate(0deg);
+			  }
+			  100% {
+			    -webkit-transform: rotate(360deg);
+			    transform: rotate(360deg);
+			  }
+			}
+			.lds-wedges {
+			  position: relative;
+			}
+			.lds-wedges > div > div {
+			  -webkit-transform-origin: 100px 100px;
+			  transform-origin: 100px 100px;
+			  -webkit-animation: lds-wedges 3s linear infinite;
+			  animation: lds-wedges 3s linear infinite;
+			  opacity: 0.8;
+			}
+			.lds-wedges > div > div > div {
+			  position: absolute;
+			  left: 30px;
+			  top: 30px;
+			  width: 70px;
+			  height: 70px;
+			  border-radius: 70px 0 0 0;
+			  -webkit-transform-origin: 100px 100px;
+			  transform-origin: 100px 100px;
+			}
+			.lds-wedges > div div:nth-child(1) > div {
+			  background: #f05125;
+			  -webkit-transform: rotate(0deg);
+			  transform: rotate(0deg);
+			}
+			.lds-wedges > div div:nth-child(1) {
+			  -webkit-animation-duration: 0.75s;
+			  animation-duration: 0.75s;
+			}
+			.lds-wedges > div div:nth-child(2) > div {
+			  background: #fdb813;
+			  -webkit-transform: rotate(0deg);
+			  transform: rotate(0deg);
+			}
+			.lds-wedges > div div:nth-child(2) {
+			  -webkit-animation-duration: 1s;
+			  animation-duration: 1s;
+			}
+			.lds-wedges > div div:nth-child(3) > div {
+			  background: #7fbb42;
+			  -webkit-transform: rotate(0deg);
+			  transform: rotate(0deg);
+			}
+			.lds-wedges > div div:nth-child(3) {
+			  -webkit-animation-duration: 1.5s;
+			  animation-duration: 1.5s;
+			}
+			.lds-wedges > div div:nth-child(4) > div {
+			  background: #32a0da;
+			  -webkit-transform: rotate(0deg);
+			  transform: rotate(0deg);
+			}
+			.lds-wedges > div div:nth-child(4) {
+			  -webkit-animation-duration: 3s;
+			  animation-duration: 3s;
+			}
+			.lds-wedges {
+			  width: 200px !important;
+			  height: 200px !important;
+			  -webkit-transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+			  transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+			}
+			.about-content h2{
+				position: relative;
+				left: -8px;
+			}
+			.col.work-item img{
+				width: 400px !important;
+				height: 250px !important;
+			}
+		</style>
+    </head>
+    <body>
+		<div class="load">
+			<div class="lds-css ng-scope">
+  <div style="width:100%;height:100%" class="lds-wedges">
+			    <div>
+			      <div>
+			        <div></div>
+			      </div>
+			      <div>
+			        <div></div>
+			      </div>
+			      <div>
+			        <div></div>
+			      </div>
+			      <div>
+			        <div></div>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		</div>
+        <div class="wrapper">
+
+            <header>
+                <a class="menu-icon jiji">
+                    <span></span>
+                </a>
+                <nav class="menu visuallyhidden">
+                    <ul>
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#about">关于我们</a></li>
+                        <li><a href="#work">活动掠影</a></li>
+                        <li><a href="#contact">加入我们</a></li>
+                    </ul>
+                </nav>
+            </header>
+
+            <section id="home" class="row">
+                <div class="overlay">
+                    <div class="col home-title jiji">
+                        <h1>电脑义疗服务中心</h1>
+                        <h2>Computer righteousness therapy service center</h2>
+                        <h2>山西大学计算机与信息技术学院团委学生会</h2>
+                        <h2>技术部/联络部</h2>
+                        <a href="./order" target="_blank" class="but">预约义疗</a>
+                        <a href="./cet" target="_blank" class="but">四六级成绩查询</a>
+                        <p>tips：义疗预约将于开学后启用</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about" class="row">
+                <div class="page about-content">
+                    <div class="col about-title">
+                        <h3
+                            data-100="-webkit-transform: translateX(100px); opacity:0;"
+                            data-500="-webkit-transform: translateX(0px); opacity:1;"
+                        >关于我们</h3>
+                        <iframe frameborder="0" width="400px" height="300px" src="https://v.qq.com/iframe/player.html?vid=v05393pwx6o&tiny=0&auto=0" allowfullscreen></iframe>
+                    </div>
+                    <div class="col empty">&nbsp;</div>
+                    <div class="col about-description">
+                    <h2 style="font-size: 24px">技术部</h2>
+                    <br>
+                        <p
+                            data-100="opacity:0;"
+                            data-500="opacity:1;"
+                        >
+<h4>工作方针：</h4>面向科技  引领前沿   您有问题  我来解决
+<h4>职能简介：</h4>
+<p>无论你是计算机老手还是新手</p>
+<p>这里都欢迎你</p>
+<p>用你的热情，服务大家，学到技能</p>
+<p>电脑义疗服务中心技术部是你能一展身手并得到锻炼的绝好平台！</p>
+</p>
+                        <a href="http://localhost:3000/contact" class="but">联系我们</a>
+                    </div>
+<section  class="row">
+                <div class="page about-content" style="padding-top: 60px">
+                    <div class="col empty">&nbsp;</div>
+                                        <div class="col about-description">
+                                        <h2 style="font-size: 24px">联络部</h2>
+                                        <br>
+                        <p
+                            data-100="opacity:0;"
+                            data-500="opacity:1;"
+                        >
+<h4>工作方针：</h4>让联络成为习惯，让成就与你陪伴
+<h4>职能简介：</h4>
+<p>义疗联络部是对外交流的一个窗口</p><p>服务大众，平等互利。</p><p>是电脑义疗服务中心与其他组织联系的纽带</p>
+<p>还等什么，还来加入我们吧。</p></p>
+                        <a href="http://localhost:3000/contact" class="but">联系我们</a>
+                    </div>
+                   </div>
+                 </section>
+
+                    <div class="col empty">&nbsp;</div>
+                </div>
+            </section>
+
+            <section id="services" class="row">
+                <div class="services-content page">
+                    <div class="col services-design"
+                        data-600="-webkit-transform: translateY(10px); opacity:0;"
+                        data-800="-webkit-transform: translateY(0px); opacity:1;"
+                    >
+                        <span class="icon-design"></span>
+                        <ul>
+                            <li>特色活动</li>
+                            <li>巡回义诊</li>
+                            <li>迎新晚会</li>
+                            <li>联谊舞会</li>
+                            <li>电脑文化月</li>
+                        </ul>
+                    </div>
+                    <div class="col services-frontend"
+                        data-600="-webkit-transform: translateY(50px); opacity:0;"
+                        data-800="-webkit-transform: translateY(0px); opacity:1;"
+                    >
+                        <span class="icon-computer"></span>
+                        <ul>
+                            <li>新的展望</li>
+                            <li>2017电脑义疗</li>
+                            <li>2017迎新晚会</li>
+                            <li>maybe 联谊舞会？</li>
+                            <li>博雅公众号后台建设</li>
+                            <li>义疗网站的建设</li>
+                            <li>更多好玩的事情!</li>
+                        </ul>
+                    </div>
+                    <div class="col services-team"
+                        data-600="-webkit-transform: translateY(100px); opacity:0;"
+                        data-800="-webkit-transform: translateY(0px); opacity:1;"
+                    >
+                        <span class="icon-music"></span>
+                        <ul>
+                            <li>团队建设</li>
+                            <li>技能培训</li>
+                            <li>每周例会</li>
+                            <li>团体聚餐</li>
+                            <li>集体外出游玩</li>
+                            <li>and more!</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section id="work" class="row">
+                <div class="work-content page">
+                    <div class="col work-title">
+                        <h3
+                            data-900="-webkit-transform: translateX(-100px); opacity:0;"
+                            data-1300="-webkit-transform: translateX(0px); opacity:1;"
+                        >活动掠影</h3>
+                    </div>
+                    <div class="col empty">&nbsp;</div>
+                    <div class="col work-description">
+                        <p
+                            data-900="opacity:0;"
+                            data-1300="opacity:1;"
+                        >您有问题  我来解决</p>
+                    </div>
+                    <div class="col empty">&nbsp;</div>
+                </div>
+                <div class="work-examples page">
+                    <div class="col work-item"
+                        data-1300="opacity:0;"
+                        data-1400="opacity:1;"
+                    >
+                        <img src="img/mmexport1500875390437.jpg" alt="巡回义诊">
+                        <div class="work-item-inside">
+                            <div class="work-item-inside-content">
+                                <h4>巡回义诊</h4>
+                                <a href="#" class="but">关注博雅新闻中心了解更多</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col work-item"
+                        data-1300="opacity:0;"
+                        data-1400="opacity:1;"
+                    >
+                        <img src="img/mmexport1500875435845.jpg" alt="义诊义讲">
+                        <div class="work-item-inside">
+                            <div class="work-item-inside-content">
+                                <h4>义诊义讲</h4>
+                                <a href="#" class="but">关注博雅新闻中心了解更多</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col work-item"
+                        data-1300="opacity:0;"
+                        data-1600="opacity:1;"
+                    >
+                        <img src="img/mmexport1500875163598.jpg" alt="文化月">
+                        <div class="work-item-inside">
+                            <div class="work-item-inside-content">
+                                <h4>电脑文化月</h4>
+                                <a href="#" class="but">关注博雅新闻中心了解更多</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col work-item"
+                        data-1300="opacity:0;"
+                        data-1400="opacity:1;"
+                    >
+                        <img src="img/QQ图片20170811221217.jpg" alt="vr论坛">
+                        <div class="work-item-inside">
+                            <div class="work-item-inside-content">
+                               <h4>vr讲座</h4>
+                               <a href="#" class="but">关注博雅新闻中心了解更多</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col work-item"
+                        data-1300="opacity:0;"
+                        data-1500="opacity:1;"
+                    >
+                        <img src="img/web.jpg" alt="web设计大赛">
+                        <div class="work-item-inside">
+                            <div class="work-item-inside-content">
+                                <h4>Web设计大赛</h4>
+                                <a href="#" class="but">关注博雅新闻中心了解更多</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <hr>
+
+            <section id="contact" class="row">
+                <div class="contact-content page">
+                    <div class="col contact-title">
+                        <h3
+                            data-100="-webkit-transform: translateX(100px); opacity:0;"
+                            data-500="-webkit-transform: translateX(0px); opacity:1;"
+                        >加入我们</h3>
+                    </div>
+                    <div class="col empty">&nbsp;</div>
+                    <div class="col contact-description">
+                        <a href="#" class="but">敬请参加计科院会招新</a>
+                        <h4>技术部部长：崔晋瑜</h4>
+                        <p>QQ:2510271615</p>
+                        <h4>技术部副部长：董凤坤</h4>
+                        <p>QQ:1832081182</p>
+                        <h4>联络部部长：范莉慧</h4>
+                        <p>QQ:2961798638</p>
+                    </div>
+                    <div class="col empty">&nbsp;</div>
+                    <div class="col span_12 social">
+                        <a class="icon-github" href="https://github.com/cuijinyu" target="_blank"></a>
+                    </div>
+                </div>
+            </section>
+			<section style="padding-bottom: 40px;text-align: center;margin: 0 auto;">
+				<div class="contact-content page">
+					<h3>博雅新闻中心</h3>
+					<img src="img/博雅.jpg" alt="博雅新闻中心" class="qr">
+					<h3>电脑义疗服务群</h3>
+					<img src="img/qq群.jpg" alt="电脑义疗服务" class="qr">
+				</div>
+			</section>
+            <footer id="footer" class="row">
+                <div class="footer-content page">
+                    <div class="col f1">
+                        <p>© 2017 CRSC</p>
+                        <p> Powered By Express</p>
+                        <p>晋ICP备17001438号</p>
+                    </div>
+                </div>
+            </footer>
+
         </div>
-        <div class="row desc">
-          <div class="col topic">
-            <img src="../images/日晴.png" alt="">
-            <h2>心情的晴雨表</h2>
-          </div>
-          <div class="col topic">
-            <img src="../images/气球.png" alt="">
-            <h2>记录每一分快乐</h2>
-          </div>
-        </div>
-      </div>
-    <%include footer.ejs%>
-  </body>
-  <style>
-    .blueback{
-      background-color: #00B7FF;
-      height: 400px;
-      color:white;
-      text-align: center;
-    }
-    .topic{
-      text-align: center;
-    }
-    .desc{
-      margin-top: 50px;
-      padding-bottom: 50px;
-    }
-    .footer{
-      background-color: #000a32;
-    }
-  </style>
-  <script>
-  </script>
+
+        <div class="loader"></div>
+
+        <!-- JavaScript -->
+        <script src="js/jquery-1.11.0.min.js"></script>
+        <script src="js/modernizr-2.6.2.min.js"></script>
+        <script src="js/skrollr.js"></script>
+        <script src="js/main.js"></script>
+
+    </body>
+
 </html>
