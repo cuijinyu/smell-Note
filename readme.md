@@ -9,7 +9,7 @@
 ### todo
 - [x] 注册功能的实现
   - [x] 用session保存信息
-  - [x] 使用mysql保存session
+  - [x] 使用mysql保存session
 - [x] 登录功能的实现
 - [x] 文章功能的实现
 - [ ] 页面的搭建
