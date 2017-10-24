@@ -4,11 +4,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-let session=require('express-session');
 var index = require('./routes/index');
 var users = require('./routes/users');
-let article = require('./routes/article');
-
+var order = require('./routes/order');
+var contact = require('./routes/contact');
+var boya = require('./routes/boya');
+var classes= require('./routes/class');
+var score =require('./routes/score');
+var session=require('express-session');
+var FileStore = require('session-file-store')(session);
 var app = express();
 
 // view engine setup
@@ -17,24 +21,29 @@ app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(session(
-    {
-        secret:'smellnote',
-        name:'SESSION',
-        cookie:{maxAge:80000},
-        resave:false,
-        saveUninitialized:true
-    }
-))
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser('secret'));
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(session({
+    name: "SESSION_COOKIE",
+    secret: 'secret', // 用来对session id相关的cookie进行签名
+    store: new FileStore(), // 本地存储session（文本文件，也可以选择其他store，比如redis的）
+    saveUninitialized: false, // 是否自动保存未初始化的会话，建议false
+    resave: false, // 是否每次都重新保存会话，建议false
+    cookie: {
+        maxAge: 10 * 1000 // 有效期，单位是毫秒
+    }
+}))
 app.use('/', index);
-app.use('/users', users);
-app.use('/article',article);
+app.use('/order',index);
+app.use('/contact',index);
+app.use('/boya',index);
+app.use('/score',index);
+app.use('/class',index);
+app.use('/successful',index);
+app.use('/delete/order',index);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
