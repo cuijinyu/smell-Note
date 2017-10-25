@@ -7,8 +7,10 @@ function query(sql,callback) {
         pool.getConnection((err,connection)=>{
             connection.query(sql,(err,rows)=>{
                 if(err){
+                    connection.end();
                     reject(err);
                 }else {
+                    connection.end();
                     resolve(rows);
                 }
             })
