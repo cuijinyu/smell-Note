@@ -58,5 +58,37 @@ router.post("/newarticle",function (req,res,next) {
     }else{
         res.send("error");
     }
-})
+});
+router.get("/desc/:num",function (req,res,next) {
+    console.log(req.params.num);
+    if(req.session.log=='true'){
+        console.log("get");
+        let id=req.params.num;
+        let comments;
+        art.findArticleComment(id)
+            .then(rows=>{
+                comments=rows;
+                res.send(comments);
+            }).catch(err=>{
+                console.log(err);
+        })
+    }else{
+        res.redirect('../error');
+    }
+});
+router.get("/delete/:num",function(req,res,next){
+    let id=req.params.num;
+    if(req.session.log=='true'){
+        console.log("get an article delete requestion");
+        art.deleteArticle(id)
+            .then(rows=>{
+                console.log(rows);
+                res.redirect('../../article');
+            }).catch(err=>{
+                console.log(err);
+         })
+    }else{
+        res.send("您无权进行操作");
+    }
+});
 module.exports=router;
